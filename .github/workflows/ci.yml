@@ -163,7 +163,6 @@ jobs:
               run: xcodebuild -project samples/compose/iosApp/iosApp.xcodeproj -scheme iosApp -destination 'generic/platform=iOS Simulator' CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
 
     deploy-snapshot:
-      if: github.repository == 'coil-kt/coil'
         name: Deploy snapshot
         runs-on: macos-latest
         timeout-minutes: 180
@@ -183,7 +182,6 @@ jobs:
               run: ./gradlew publishToMavenCentral
 
     deploy-docs:
-      if: github.repository == 'coil-kt/coil'
         name: Deploy docs
         runs-on: ubuntu-latest
         timeout-minutes: 60
