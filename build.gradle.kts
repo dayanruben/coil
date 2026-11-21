@@ -12,6 +12,8 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.dsl.abi.BinariesSource
 import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
 import org.jetbrains.kotlin.gradle.targets.js.testing.KotlinJsTest
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
 import org.jetbrains.kotlin.gradle.tasks.IncrementalSyncTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
@@ -39,6 +41,14 @@ plugins {
     id("coil3.verify-skiko-versions")
     // https://github.com/gradle/gradle/issues/20084#issuecomment-1060822638
     id("org.jetbrains.dokka")
+}
+
+// Keep the generated Kotlin/JS lockfile on patched versions of these transitive dependencies.
+plugins.withType<YarnPlugin> {
+    the<YarnRootExtension>().apply {
+        resolution("proxy-addr", "2.0.8")
+        resolution("shell-quote", "1.11.0")
+    }
 }
 
 dokka {
